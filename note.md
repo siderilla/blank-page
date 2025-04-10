@@ -22,3 +22,12 @@ TIPS:
     . funzionalità di richtext che si possono mettere tra la navbar e il texteditor x_x
     . salvataggio temporizzato ?
     . ogni volta che cmabia il testo scritto -- evento change al servizio (signal) e notifica il cambiamento
+
+////////// compiti
+open-meteo.com/en/docs
+forecast varibili pioggia, vento, temp, etc
+chiamata costruisce sotto c'è apiurl con tutti i valori
+per ogni ora dice tutti i forecast selezionati sopra
+sono tot array separati che vanno montati insieme
+displayare ora per ora per i prossimi sette giorni i forecast selezionati sopra
+con grafica decente
