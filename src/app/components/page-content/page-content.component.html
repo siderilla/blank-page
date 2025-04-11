@@ -1,1 +1,2 @@
-<p id="userInput"> {{ currentNote.content }} </p>
+<form [formGroup]="form"><textarea id="userInput" formControlName="noteContent"> {{ currentNote() }} </textarea>
+</form>

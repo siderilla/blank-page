@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-details',
@@ -7,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrl: './details.component.scss'
 })
 export class DetailsComponent {
+
+  totalWords = input.required<number>({alias: 'words-total'})
+
+  totalChars = input.required<number>({alias: 'chars-total'})
+
 
 }

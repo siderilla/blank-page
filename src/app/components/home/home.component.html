@@ -1,1 +1,8 @@
-<div page-content contenteditable></div>
+<div 
+    page-content 
+    contenteditable
+    saveOnLeave
+    [note-content]="noteContent()"
+    (sendUpdatedContent)="updatedNote($event)">
+</div>
+<app-details [words-total]="totalWords()" [chars-total]="totalChars()"></app-details>

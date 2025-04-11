@@ -1,6 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Signal, signal } from '@angular/core';
 import { type Note } from '../models/note';
-import { generate } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +8,11 @@ export class NotesService {
 
   private readonly STORAGE_KEY = 'notes';
 
-  note: Note;
+  note: Signal<Note>; //Signal tipo
 
   constructor() {
 
-    this.note = this.loadNotes();
+    this.note = signal(this.loadNotes()); //signal funzione
 
   }
     
