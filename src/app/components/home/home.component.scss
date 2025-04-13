@@ -1,5 +1,12 @@
 :host {
-    display: grid;
-    grid-template-columns: 3fr 2fr;
-    gap: 1rem;
+	font-family: monospace;
+	display: grid;
+	grid-template-columns: 3fr 2fr;
+	height: 100vh;
+	gap: 1rem;
+}
+
+app-details {
+	padding-left: 3rem;
+	align-self: start;
 }

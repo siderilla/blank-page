@@ -1,5 +1,25 @@
 :host {
-    padding: 0.25px 1rem;
-    border: 1px solid #313131;
-    border-radius: 0.25rem;
-}
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	height: 100%;
+  }
+  
+  div[contenteditable] {
+	flex-grow: 1;
+	height: 100%;
+	width: 100%;
+	padding: 1rem;
+	border-radius: 0.25rem;
+	outline: none;
+	overflow-y: auto;
+	resize: none;
+	white-space: pre-wrap;
+	font-family: monospace;
+
+	word-break: break-word;
+	overflow-wrap: break-word;
+  
+	max-width: 100%;
+  }
+  

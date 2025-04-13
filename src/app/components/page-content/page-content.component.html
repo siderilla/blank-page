@@ -1,2 +1,5 @@
-<form [formGroup]="form"><textarea id="userInput" formControlName="noteContent"> {{ currentNote() }} </textarea>
-</form>
+<div 
+  contenteditable="true"
+  (input)="onContentChange($event)"
+  #editorRef>
+</div>

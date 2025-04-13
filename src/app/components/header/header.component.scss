@@ -1,0 +1,16 @@
+header {
+	display: flex;
+	justify-content: flex-end;
+	padding: 1rem;
+	background-color: transparent;
+	position: sticky;
+	top: 0;
+	z-index: 10;
+
+	button {
+		background: none;
+		border: none;
+		font-size: 1.5rem;
+		cursor: pointer;
+	}
+}

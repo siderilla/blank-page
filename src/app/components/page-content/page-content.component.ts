@@ -1,31 +1,33 @@
-import { Component, inject, input, output } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Component, AfterViewInit, ElementRef, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'div[page-content]', //tag html con nome
-  imports: [ReactiveFormsModule],
-  templateUrl: './page-content.component.html',
-  styleUrl: './page-content.component.scss'
+	standalone: true,
+	selector: 'app-page-content',
+	templateUrl: './page-content.component.html',
+	styleUrls: ['./page-content.component.scss']
 })
-export class PageContentComponent {
+export class PageContentComponent implements AfterViewInit {
+	@Input() currentNote: string = '';
+	@Output() sendUpdatedContent = new EventEmitter<string>();
 
-  currentNote = input.required({ alias: 'note-content' });
-  sendUpdatedContent = output<string>();
-  form!: FormGroup;
+	@ViewChild('editorRef') editor!: ElementRef<HTMLDivElement>;
 
-  ngOnInit() {
-    this.form = new FormGroup({
-      noteContent: new FormControl(this.currentNote())
-    })
+	ngAfterViewInit() {
+		if (this.editor) {
+			this.editor.nativeElement.innerText = this.currentNote;
+		}
+	}
 
-  }
-
-  constructor() {
-
-    setInterval(() => {
-      const newValue = this.form.value.noteContent;
-      this.sendUpdatedContent.emit(newValue);
-    }, 1000)
-  }
-
+	onContentChange(event: Event) {
+		const newText = (event.target as HTMLElement).innerText;
+		console.log('[EMIT]', newText);
+		this.sendUpdatedContent.emit(newText);
+	}
 }
+
+// NOTE:
+// @Input() currentNote: string serve a ricevere il contenuto iniziale da fuori → perfetto.
+// @Output() sendUpdatedContent = new EventEmitter<string>() serve a mandare dati verso il genitore → centrato in pieno.
+// EventEmitter è una classe, non una funzione, ma la usi come se fosse una funzione col metodo .emit() → quindi il tuo uso è corretto.
+// L’Event è proprio un’interfaccia generica di evento DOM → corretto anche questo.
+// .emit() è il modo di “sparare” l’informazione fuori dal componente → sacrosanto.
