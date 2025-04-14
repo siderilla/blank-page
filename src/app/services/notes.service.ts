@@ -8,7 +8,7 @@ export class NotesService {
 
 	private readonly STORAGE_KEY = 'notes';
 
-	note: WritableSignal<Note>; //Signal tipo
+	note: WritableSignal<Note>; //Signal tipo - lo conservo qui e gli assegno interfaccia writable
 
 	constructor() {
 
@@ -17,14 +17,13 @@ export class NotesService {
 	}
 
 	saveNote(): void {
-		console.log('[SAVE] Chiamato saveNote()');
 		const currentNote = this.note();
 		currentNote.last_edit = Date.now();
 		localStorage.setItem(this.STORAGE_KEY, JSON.stringify(currentNote));
 	}
 
 
-	loadNotes(): Note {
+	loadNotes(): Note { //restituisco il dato Note che lo prende da localstorage o lo crea nuovo
 		const savedNote = localStorage.getItem(this.STORAGE_KEY);
 		if (!savedNote) {
 			return this.generateDefaultNote();

@@ -117,7 +117,7 @@ OK - PageContentComponent con div contenteditable
 OK - Emettere il contenuto aggiornato con @Output()
 OK - HomeComponent riceve l’evento (sendUpdatedContent) e aggiorna un signal
 OK - Il contenuto si ricarica al refresh (via localStorage e NotesService)
-- Dark mode toggle (🌞/🌙)
+OK - Dark mode toggle (🌞/🌙)
 - Fullscreen attivabile da bottone
 - Download del testo in formato .txt
 
@@ -146,3 +146,29 @@ OK - Il contenuto si ricarica al refresh (via localStorage e NotesService)
 - Modal per creare nuova nota con nome
 - Conferma prima di eliminare una nota
 - Importazione/esportazione note (es. JSON)
+
+----------------------------------------------
+
+Capire il flusso dati da quando scrivi qualcosa nell’editor, fino a quando viene salvato nel localStorage.
+
+1. dove inizia il contenuto?
+	nel template di pagecontent: abbiamo un div contenteditable settato a true e (input) che attiva l'evento che scatena la funzione onContentChange
+2. chi riceve il contenuto?
+	il metodo onContentChange() presente nel component di pagecontent
+	cosa fa? 
+	riceve un evento - interfaccia angular, come parametro (oggetto di tipo Event, che rappresenta un evento DOM)
+	in una costante newText salva l'oggetto dove viene dispatchato come HTMLElement l'evento attraverso la proprietà .target chiamata sull'evento
+	a sua volta invochiamo la proprietà .innerText di HTMLElement per assicurarci che venga restituito solo il testo visibile all'utente dentro l'elemento
+	dopo di ché si chiama l'output dichiarato prima sendUpdatedContent alla quale è stato assegnato un EventEmitter di tipo stringa e gli si dice dunqnue in sostanza di emettere l'output su newText, cioè il dispatch del nostro evento come HTMLElement
+3. chi riceve questo dato?
+	nel template di home abbiamo il tag del pagecontent che chiama l'evento da sendUpdatedContent su un metodo updatedNote presente in homecomponent e riceve il signal di noteContent()
+4. come finisce nel localStorage?
+	nel servizio abbiamo il metodo saveNode() apposito, dove prende un signal, aggiorna la data e poi salva
+
+
+
+DOMANDE DA FARSI:
+	-Dove nasce il dato?
+	-Dove lo conservi?
+	-Chi lo aggiorna?
+	-Chi lo legge?
