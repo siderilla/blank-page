@@ -1,10 +1,13 @@
-<app-page-content
-	[currentNote]="noteContent()"
-	saveOnLeave
-	(sendUpdatedContent)="updatedNote($event)">
-</app-page-content>
-<app-details 
-	[words-total]="totalWords()" 
-	[chars-total]="totalChars()">
-</app-details>
+<app-header (newNoteRequested)="createNewNote()">
+</app-header>
 
+<main>
+	<app-page-content 
+	[currentNote]="noteContent()" 
+	saveOnLeave (sendUpdatedContent)="updatedNote($event)">
+	</app-page-content>
+
+	<app-details [words-total]="totalWords()" 
+	[chars-total]="totalChars()">
+	</app-details>
+</main>

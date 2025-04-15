@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
 	standalone: true,
@@ -8,6 +8,8 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
 	isDarkMode = false;
+
+	@Output() newNoteRequested = new EventEmitter<void>();
 
 	ngOnInit() {
 		const savedTheme = localStorage.getItem('theme');
@@ -24,5 +26,9 @@ export class HeaderComponent {
 
 	applyTheme() {
 		document.body.classList.toggle('dark-mode', this.isDarkMode);
+	}
+
+	requestNewNote() {
+		this.newNoteRequested.emit();
 	}
 }

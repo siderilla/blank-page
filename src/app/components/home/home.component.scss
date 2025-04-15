@@ -1,12 +1,28 @@
 :host {
-	font-family: monospace;
-	display: grid;
-	grid-template-columns: 3fr 2fr;
+	display: flex;
+	flex-direction: column;
 	height: 100vh;
+}
+
+main {
+	display: grid;
+	grid-template-columns: 3fr 1fr;
+	flex-grow: 1;
 	gap: 1rem;
+	padding: 1rem;
+	overflow: hidden;
+	font-family: monospace;
+}
+
+app-page-content {
+	height: 100%;
+	padding-right: 2rem;
 }
 
 app-details {
-	padding-left: 3rem;
-	align-self: start;
+	height: 100%;
+	overflow-y: auto;
+	padding-left: 2rem;
+	padding-right: 2rem;
+	border-left: 1px solid #ccc;
 }
