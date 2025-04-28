@@ -1,6 +1,15 @@
-<header>
-	<button (click)="requestNewNote()">➕</button>
-	<button (click)="toggleTheme()" aria-label="Toggle theme">
-		{{ isDarkMode ? '🌙' : '☀️' }}
+<mat-toolbar [class.dark-mode]="isDarkMode" color="primary">
+	<button mat-icon-button (click)="requestNewNote()" aria-label="New Note">
+		<mat-icon>add</mat-icon>
 	</button>
-</header>
+
+	<span class="spacer"></span>
+
+	<button mat-icon-button (click)="downloadCurrentNote()" aria-label="Download Note">
+		<mat-icon>download</mat-icon>
+	</button>
+
+	<button mat-icon-button (click)="toggleTheme()" aria-label="Toggle theme">
+		<mat-icon>{{ isDarkMode ? 'dark_mode' : 'light_mode' }}</mat-icon>
+	</button>
+</mat-toolbar>

@@ -8,71 +8,48 @@ export class NotesService {
 
 	private readonly STORAGE_KEY = 'notes';
 
-	note: WritableSignal<Note>; //Signal tipo - lo conservo qui e gli assegno interfaccia writable
-	notes: Note[] = [];
+	notes: WritableSignal<Note[]>; // Array di note gestito come Signal
+	selectedNote = signal<Note | null>(null);
 
 	constructor() {
-
-		this.note = signal(this.loadNotes()); //signal funzione
-		this.notes = [];
+		this.notes = signal(this.loadAllNotes());
 	}
 
-	saveNote(): void {
-		const currentNote = this.note();
-		currentNote.last_edit = Date.now();
-		localStorage.setItem(this.STORAGE_KEY, JSON.stringify(currentNote));
+	saveNotes(): void {
+		localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.notes()));
 	}
-
-	loadNotes(): Note { //restituisco il dato Note che lo prende da localstorage o lo crea nuovo
-		const savedNote = localStorage.getItem(this.STORAGE_KEY);
-		if (!savedNote) {
-			return this.generateDefaultNote();
-		} else {
-			return JSON.parse(savedNote);
-		}
-	}
-
-	addOrUpdateNote(): void {
-		const currentNote = this.note();
-		let found = false;
-
-		for (let i = 0; i < this.notes.length; i++) {
-			const note = this.notes[i];
-			if (note.id === currentNote.id) {
-				this.notes[i] = currentNote;
-				found = true;
-				break; // esco dal ciclo, ho trovato quello che cercavo
-			}
-		}
-		if (!found) {
-			this.notes.push(currentNote);
-		}
-		this.saveAllNotes(); // salva tutto l’array aggiornato
-	}
-
-
-	saveAllNotes(): void {
-		localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.notes));
-	}
-
 
 	loadAllNotes(): Note[] {
 		const savedNotes = localStorage.getItem(this.STORAGE_KEY);
-		if (!savedNotes) {
-			return [];
+		return savedNotes ? JSON.parse(savedNotes) : [];
+	}
+
+	addOrUpdateNote(note: Note): void {
+		const notes = this.notes();
+		const index = notes.findIndex(n => n.id === note.id);
+
+		if (index !== -1) {
+			notes[index] = note; // aggiornamento
 		} else {
-			return JSON.parse(savedNotes);
+			notes.push(note); // aggiunta
 		}
+
+		this.notes.set([...notes]); // aggiorno il Signal
+		this.saveNotes();
 	}
 
 	generateDefaultNote(): Note {
-		const defaultNote: Note = {
-			id: 'note-' + Date.now(),
+		const timestamp = Date.now();
+		return {
+			id: `note-${timestamp}`,
 			title: 'New note',
 			content: 'Start writing...',
-			creation_date: Date.now(),
-			last_edit: Date.now(),
-		}
-		return defaultNote;
+			creation_date: timestamp,
+			last_edit: timestamp,
+		};
+	}
+
+	selectNote(note: Note): void {
+		this.selectedNote.set(note);
 	}
 }

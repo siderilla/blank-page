@@ -3,9 +3,9 @@
 	flex-direction: column;
 	flex-grow: 1;
 	height: 100%;
-  }
-  
-  div[contenteditable] {
+}
+
+div[contenteditable] {
 	flex-grow: 1;
 	height: 100%;
 	width: 100%;
@@ -15,11 +15,7 @@
 	overflow-y: auto;
 	resize: none;
 	white-space: pre-wrap;
-	font-family: monospace;
-
 	word-break: break-word;
 	overflow-wrap: break-word;
-  
 	max-width: 100%;
-  }
-  
+}

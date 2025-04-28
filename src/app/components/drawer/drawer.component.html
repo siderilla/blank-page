@@ -1,0 +1,19 @@
+<mat-nav-list>
+	<mat-list-item *ngFor="let note of service.notes()" (click)="selectNote(note)"
+		[class.selected]="note.id === selectedNoteId">
+
+		<div class="note-item">
+			<span class="note-title">{{ note.title }}</span>
+
+			<div class="note-actions" (click)="$event.stopPropagation()">
+				<button mat-icon-button (click)="editNoteTitle(note, $event)" aria-label="Edit title">
+					<mat-icon>edit</mat-icon>
+				</button>
+				<button mat-icon-button (click)="deleteNote(note, $event)" aria-label="Delete note">
+					<mat-icon>delete</mat-icon>
+				</button>
+			</div>
+		</div>
+
+	</mat-list-item>
+</mat-nav-list>

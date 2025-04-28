@@ -1,20 +1,36 @@
-header {
+mat-toolbar {
 	display: flex;
-	justify-content: space-between;
 	align-items: center;
-	padding: 1rem;
-	border-bottom: 1px solid #ccc;
+	height: 64px;
+	padding: 0 16px;
+	transition: background-color 0.3s, color 0.3s;
 }
 
-button {
-	all: unset;
-	cursor: pointer;
-	padding: 0.5rem;
-	border-radius: 0.5rem;
-	transition: background 0.2s;
-  
-	&:hover {
-	  background: #eee;
-	}
-  }
-  
+mat-toolbar button mat-icon {
+	transition: color 0.3s;
+}
+
+.spacer {
+	flex: 1 1 auto;
+}
+
+/* Light Mode */
+body:not(.dark-mode) mat-toolbar {
+	background-color: #333;
+	/* colore Material primary */
+	color: white;
+}
+
+body:not(.dark-mode) mat-toolbar button mat-icon {
+	color: white;
+}
+
+/* Dark Mode */
+body.dark-mode mat-toolbar {
+	background-color: #333;
+	color: #fff;
+}
+
+body.dark-mode mat-toolbar button mat-icon {
+	color: #fff;
+}

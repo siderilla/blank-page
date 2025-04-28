@@ -1,13 +1,9 @@
-<app-header (newNoteRequested)="createNewNote()">
-</app-header>
+<app-header (newNoteRequested)="createNewNote()"></app-header>
 
-<main>
-	<app-page-content 
-	[currentNote]="noteContent()" 
-	saveOnLeave (sendUpdatedContent)="updatedNote($event)">
+<div class="home-grid">
+	<app-drawer (noteSelected)="onNoteSelected($event)"></app-drawer>
+	<app-page-content [currentNote]="noteContent()" saveOnLeave (sendUpdatedContent)="updatedNote($event)">
 	</app-page-content>
-
-	<app-details [words-total]="totalWords()" 
-	[chars-total]="totalChars()">
+	<app-details [words-total]="totalWords()" [chars-total]="totalChars()" [notes-total]="service.notes().length">
 	</app-details>
-</main>
+</div>
